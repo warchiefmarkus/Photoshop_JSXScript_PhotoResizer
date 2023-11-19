@@ -20,14 +20,14 @@ for(var i=0; i<fileList.length; i++) {
 	app.backgroundColor = white;
 
 	if (doc.height>doc.width){
-	if (((doc.height/7)*5)>doc.width){
-	doc.resizeCanvas(fWidth,fHeight, AnchorPosition.MIDDLECENTER);
-	}else{
-	doc.resizeCanvas(doc.width,((doc.width/5)*7), AnchorPosition.MIDDLECENTER);
-	}
+		if (((doc.height/7)*5)>doc.width){
+			doc.resizeCanvas(fWidth,fHeight, AnchorPosition.MIDDLECENTER);
+		}else{
+			doc.resizeCanvas(doc.width,((doc.width/5)*7), AnchorPosition.MIDDLECENTER);
+		}
 	}
 	else{
-	doc.resizeCanvas(doc.width,((doc.width/7)*5), AnchorPosition.MIDDLECENTER);
+		doc.resizeCanvas(doc.width,((doc.width/7)*5), AnchorPosition.MIDDLECENTER);
 	}
 
 	var options = new ExportOptionsSaveForWeb();
@@ -35,15 +35,13 @@ for(var i=0; i<fileList.length; i++) {
 	options.format = SaveDocumentType.JPEG;
 	options.optimized = true;
 
-	var newName = 'web-'+doc.name+'.jpg';
+	var newName = 'resized_'+doc.name+'.jpg';
 
-	doc.exportDocument(File(doc.path+'/res/'+newName),ExportType.SAVEFORWEB,options);
+	//-- check if folder exist if not create it
+	var folder = new Folder(doc.path+'/resized');
+	if(!folder.exists) folder.create();
+
+	doc.exportDocument(File(doc.path+'/resized/'+newName),ExportType.SAVEFORWEB,options);
 	
 	//doc.close(SaveOptions.no)
 }
-
-
-
-
-
-
